@@ -1,0 +1,49 @@
+﻿ <!-- Представление пользователя -->
+@using Microsoft.AspNetCore.Identity;
+@using VT_20321.Data.Catalog;
+@inject SignInManager<ApplicationUser> signInManager
+
+    @if (signInManager.IsSignedIn(User)) {  <!-- //проверка регистрации пользователя -->
+    
+        @await Component.InvokeAsync("Cart")
+    
+        <div class="dropdown ms-4 nav-color">
+            <button class="dropdown-toggle btn btn-outline-dark nav-color" type="button" data-bs-toggle="dropdown" id="dropdownMenuButton" aria-expanded="false">
+                @* <!-- метод GetImage контроллера Image должен вернуть изображение
+                <img src="@Url.Action("GetImage", "Image")" width="30" alt="User" class="rounded"/>  --> *@
+                <img img-action="GetImage"
+                     img-controller="Image"
+                     width="50" alt="User" class="rounded bg-light"/>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                <li class="dropdown-item-text">
+                    @* <!-- метод GetImage контроллера Image должен вернуть изображение
+                    <img src="@Url.Action("GetImage", "Image")" width="50" alt="User" class="rounded"/> --> *@
+                    <img img-action="GetImage"
+                         img-controller="Image"
+                         width="50" alt="User" class="rounded bg-light"/>
+                    @User.Identity.Name   <!-- вывод реального имени пользователя -->
+                </li>
+                <li class="dropdown-divider"></li>                
+                <!-- переход на страницу Logout -->
+                <form asp-area="Identity" 
+                      asp-page="/Account/Logout"
+                      asp-route-returnurl="@ViewContext.HttpContext.Request.Path">
+                    <input type="submit"
+                           value="Log off"
+                           class="dropdown-item"/>
+                </form>
+            </ul>
+        </div>
+    }
+    <!-- вывод меню «Войти – Зарегистрироваться», если пользователь не прошел проверку -->
+    else {
+            <ul class="nav navbar-nav ml-auto">
+                <li>
+                    <a class="nav-item nav-link" asp-area="Identity" asp-page="/Account/Login">Войти</a>
+                </li>
+                <li>
+                    <a class="nav-item nav-link" asp-area="Identity" asp-page="/Account/Register">Login in</a>
+                </li>
+            </ul>
+    }

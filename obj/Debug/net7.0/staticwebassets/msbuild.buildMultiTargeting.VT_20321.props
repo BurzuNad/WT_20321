@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\VT_20321.props" />
+</Project>

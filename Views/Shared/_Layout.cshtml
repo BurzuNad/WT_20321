@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - VT_20321</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/VT_20321.styles.css" asp-append-version="true" />
+</head>
+
+<body>
+    <header>
+        <!-- header - начало -->
+        <div class="container">
+            <!-- container - начало -->
+            <!-- Панель навигации -->
+            <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+                <!-- меню сайта -->
+                <a class="navbar-brand" href="#">20321</a>
+                <div class="navbar-nav">
+                    @await Component.InvokeAsync("Menu")
+                </div>
+                <!-- меню сайта - конец -->
+                <!-- Информация пользователя - вынесли в частичное представление-->
+                <partial name="_UserInfoPartial" />  
+                <!-- Информация пользователя -->
+                
+            </nav> <!-- Панель навигации - конец -->
+        </div>                    <!-- container - конец -->
+    </header>                     <!-- header - конец -->
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer>
+        <div class="navbar navbar-dark navbar-expand-md bg-dark">
+            <!-- Подвал страницы - начало -->
+            <div class="navbar-nav ms-auto">
+                <a class="nav-item nav-link" href="http://www.facebook.com">
+                    <i class="fa-brands fa-facebook"></i>
+                </a>
+                <a class="nav-item nav-link" href="http://www.vk.com">
+                    <i class="fa-brands fa-vk"></i>
+                </a>
+                <a class="nav-item nav-link" href="http://www.twitter.com">
+                    <i class="fa-brands fa-square-twitter"></i>
+                </a>
+            </div>
+        </div>                                                    <!-- Подвал страницы - конец -->     
+    </footer>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2024 - VT_20321 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

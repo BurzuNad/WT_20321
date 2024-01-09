@@ -1,0 +1,50 @@
+﻿@model ListViewModel<CatalogItem>
+
+@{
+    ViewData["Title"] = "Ассортимент";
+    var categories = ViewData["Category"] as IEnumerable<CatalogCategory>;
+    int currentCategory = (int)ViewData["CurrentCategory"];
+    var text = currentCategory != 0
+                ? categories
+                .FirstOrDefault(g => g.CatalogCategoryId == currentCategory)?
+                .CatalogCategoryName
+                : "Все";
+}
+
+<div class="row">
+    <div class="col-2">
+        <div class="dropdown mt-2">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                @text
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li>
+                    <a class="dropdown-item"
+                       asp-action="GetCatalog"
+                       asp-controller="Catalog">Все</a>
+                </li>
+                @foreach (var item in categories)
+                {
+                    <li>
+                        <a class="dropdown-item"
+                           asp-action="GetCatalog"
+                           asp-controller="Catalog"
+                           asp-route-category="@item.CatalogCategoryId"
+                           asp-route-pageNo="1">@item.CatalogCategoryName</a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+    <div class="col-10">
+        <div class="card-group">
+            @foreach (var item in Model)
+            {
+                <partial name="_ListItemPartial" model="@item" />
+            }
+        </div>
+        <pager page-current="@Model.CurrentPage" page-total="@Model.TotalPages" action="GetCatalog" controller="Catalog"
+               category-id="@currentCategory"></pager>
+    </div>
+</div>

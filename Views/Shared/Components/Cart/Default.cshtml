@@ -1,0 +1,7 @@
+﻿ <!-- Информация корзины -->
+<a  asp-controller="cart"
+    asp-action="index"
+    class="navbar-text ms-auto">
+    @Model.Price руб.<i class="fas fa-shopping-cart nav-color" /></i>
+    (@Model.Count)
+</a>
